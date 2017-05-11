@@ -2,7 +2,7 @@
 Sentiment analysis to forecast the outcome of the UK 2017 snap election.
 
 
-# Scraper files
+### Scraper files
 There are currently two scraper files for ingesting tweets, one to pick out track terms in the text of the tweet, the other to pick out track terms in the hashtag of the tweet. 
 
 The text scraper can be found in the 'text scraper' folder with the associated settings python script (settingsmongo.py - contains track terms) and 'private' python script (contains twitter API keys - needs to be renamed as "privatemongo" to work with the mongotweet3.py file)
