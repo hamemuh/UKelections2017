@@ -42,7 +42,7 @@ class KubrickListener(tweepy.StreamListener):
 
                     td['filter'] = word   # add column of the word that the tweet has been filtered by
 
-                    if word in settingsmongo.Labour:
+                    if word in settingsmongo.Labour:        # to create 'bin' term for each filter word
                         td['Bin'] = 'Labour'
                     elif word in settingsmongo.Conservative:
                         td['Bin'] = 'Conservative'
@@ -54,20 +54,24 @@ class KubrickListener(tweepy.StreamListener):
                         td['Bin'] = 'Green'
                     elif word in settingsmongo.SNP:
                         td['Bin'] = 'SNP'
+                    elif word in settingsmongo.cymru:
+                        td['Bin'] = 'Cymru'
                     elif word in settingsmongo.neutral:
                         td['Bin'] = 'Neutral'
+                    elif word in settingsmongo.other:
+                        td['Bin'] = 'other'
                     else:
                         i
 
 
 
 
-                    db.testfilter3.insert(td)  # insert all columns into mongo
+                    db.final_tweets2.insert(td)  # insert all columns into mongo
                     print '___: D___'
                     print('Tweet found filtered by ' + word)
 
             else:
-                print('')
+                print ' : ( ... no filter word in text'
 
         except:
             print 'error. sorry'
