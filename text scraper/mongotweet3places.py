@@ -90,6 +90,8 @@ auth = tweepy.OAuthHandler(privatemongo.TWITTER_APP_KEY, privatemongo.TWITTER_AP
 auth.set_access_token(privatemongo.TWITTER_KEY, privatemongo.TWITTER_SECRET)
 api = tweepy.API(auth)
 
+places = api.geo_search(query="name of country", granularity="country")
+place_id = places[0].id
 
 KL = KubrickListener()
 stream = tweepy.Stream(auth=api.auth, listener=KL)
