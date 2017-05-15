@@ -32,21 +32,15 @@ class KubrickListener(tweepy.StreamListener):
             db = connection.twitterdb           # to connect to mongo
             td = json.loads(status)  # load tweet in json dictionary format
 
-
-            #text2 = td['entities']['hashtags']
             for hashtag in td['entities']['hashtags']:
-                text2 = hashtag['text']
+                text2 = hashtag['text']                     # picks out the hashtag from the tweet
                 print text2
-                #for text2 in settingshash.TRACK_TERMS:        # loop to pick out the filtered word in the TWEET (text) ONLY
-                if text2.lower() in settingshash.TRACK_TERMS:
+
+                if text2.lower() in settingshash.TRACK_TERMS:  # picks out the filtered word in the TWEET (hashtag) ONLY
                    # to insert polarity etc into mongo
                     text = td['text']  # set the tweet to variable 'text'
                     td['polarity'] = TextBlob(text).sentiment.polarity  # calculates polarity of tweet and adds column to mongo
                     td['subjectivity'] = TextBlob(text).sentiment.subjectivity  # " " subjectivity " "
-
-                    tweets = api.search(q="place:%s" % place_id)
-                    for tweet in tweets:
-                        print tweet.text + " \n\n " + tweet.place.name if tweet.place else "Undefined place"
 
                     td['filter'] = text2
                      ## add column of the word that the tweet has been filtered by
@@ -74,9 +68,10 @@ class KubrickListener(tweepy.StreamListener):
                     else:
                         i=1
 
-                    td['stream_origin'] = 'hashtag stream'
+                    td['stream_origin'] = 'hashtag stream'  # column to say tweet has been picked out by its hashtag
                     db.final_tweets3.insert(td)
-                #db.anothertest.insert(td)  # insert all columns into mongo
+
+
 
 
             #else:
@@ -95,9 +90,6 @@ class KubrickListener(tweepy.StreamListener):
 auth = tweepy.OAuthHandler(privatemongo.TWITTER_APP_KEY, privatemongo.TWITTER_APP_SECRET)
 auth.set_access_token(privatemongo.TWITTER_KEY, privatemongo.TWITTER_SECRET)
 api = tweepy.API(auth)
-
-places = api.geo_search(query="name of country", granularity="country")
-place_id = places[0].id
 
 KL = KubrickListener()
 stream = tweepy.Stream(auth=api.auth, listener=KL)

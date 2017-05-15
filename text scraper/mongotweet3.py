@@ -40,10 +40,6 @@ class KubrickListener(tweepy.StreamListener):
                     td['polarity'] = TextBlob(text).sentiment.polarity  # calculates polarity of tweet and adds column to mongo
                     td['subjectivity'] = TextBlob(text).sentiment.subjectivity  # " " subjectivity " "
 
-                    tweets = api.search(q="place:%s" % place_id)
-                    for tweet in tweets:
-                        print tweet.text + " \n\n " + tweet.place.name if tweet.place else "Undefined place"
-
                     td['filter'] = word   # add column of the word that the tweet has been filtered by
 
                     if word in settingsmongo.Labour:        # to create 'bin' term for each filter word
@@ -58,19 +54,17 @@ class KubrickListener(tweepy.StreamListener):
                         td['Bin'] = 'Green'
                     elif word in settingsmongo.SNP:
                         td['Bin'] = 'SNP'
-                    elif word in settingsmongo.cymru:
+                    elif word in settingsmongo.Cymru:
                         td['Bin'] = 'Cymru'
                     elif word in settingsmongo.neutral:
                         td['Bin'] = 'Neutral'
                     elif word in settingsmongo.other:
                         td['Bin'] = 'other'
                     else:
-                        i
+                        i=1
 
-
-
-
-                    db.final_tweets2.insert(td)  # insert all columns into mongo
+                    td['stream_origin'] = 'text stream'
+                    db.final_tweets3.insert(td)  # insert all columns into mongo
                     print '___: D___'
                     print('Tweet found filtered by ' + word)
 
@@ -89,7 +83,6 @@ class KubrickListener(tweepy.StreamListener):
 auth = tweepy.OAuthHandler(privatemongo.TWITTER_APP_KEY, privatemongo.TWITTER_APP_SECRET)
 auth.set_access_token(privatemongo.TWITTER_KEY, privatemongo.TWITTER_SECRET)
 api = tweepy.API(auth)
-
 
 KL = KubrickListener()
 stream = tweepy.Stream(auth=api.auth, listener=KL)
