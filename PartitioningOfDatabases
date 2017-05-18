@@ -5,3 +5,9 @@ Partitioning of databases
 Stopped on Wednesday 17th May, continued on Mohsin’s machine
 
 2.	Mohsin’s stream: 10.50.0.94: 2701, db: twitterdb, collection: 17th_may
+
+3.  Updated - In Jordan's database - added a new database (prior to 17th may) with both sentiment methods incorporated (Vader + Textblob)
+              Database name : db.beforeseventeenth
+              
+              
+              
