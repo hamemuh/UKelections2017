@@ -1,0 +1,7 @@
+Partitioning of databases 
+
+1.	Jordan’s stream: 10.50.0.128: 27017, db: twitterdb, collection: final_tweets3
+2,250,828 rows
+Stopped on Wednesday 17th May, continued on Mohsin’s machine
+
+2.	Mohsin’s stream: 10.50.0.94: 2701, db: twitterdb, collection: 17th_may
