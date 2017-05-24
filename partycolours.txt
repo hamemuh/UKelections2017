@@ -1,0 +1,8 @@
+Conservative, rgb(65,105,225)
+Labour, rgb(139,0,0)
+LibDem, rgb(255,165,0)
+Green, rgb(34,139,34)
+UKIP, rgb(148,0,211)
+SNP, rgb(255,255,0)
+
+
