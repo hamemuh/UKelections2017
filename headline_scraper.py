@@ -35,7 +35,7 @@ def headline():
         data.append('headlines')
         data.append(news)
 
-        for h in allhead:
+        for h in allhead[0:27]:
 
             entry = str(h).split('>')[1][:-4]       # cleans h3 tag to just the text
             #print entry  # maybe just top 6
